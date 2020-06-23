@@ -1,0 +1,220 @@
+
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,700&display=swap&subset=cyrillic,cyrillic-ext');
+
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: none;
+  vertical-align: baseline;
+}
+
+ul, ol {
+  list-style: none; 
+}
+
+blockquote, q {
+  quotes: none; 
+}
+
+a, button, label, input[type="submit"] {
+  cursor: pointer; 
+}
+
+a {
+  text-decoration: none;
+  color: currentColor; 
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; 
+}
+
+img {
+  display: block;
+  max-width: 100%; 
+}
+html {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 1.15;
+    letter-spacing: .03rem;
+    position: relative;
+    -webkit-text-size-adjust: 100%;
+    background-color: #f3f2ec;
+    color: #4e4e4e;
+    overflow-x: hidden;
+    min-width: 499px;
+    scroll-behavior: smooth;
+}
+
+.back_button {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 1.5rem;
+    padding: 1rem 2rem;
+    color: #4e4e4e;
+    letter-spacing: .03rem;
+    background-color: #7bc7a1;
+    border-radius: 3px;
+    box-shadow: #808080 0px 5px 10px 0px;
+    transition: box-shadow .2s, transform .2s;
+    margin: 0 auto;
+}
+.back_button:hover {
+    box-shadow: #808080 0px 8px 10px 0px;
+    transform: scale(1.01);
+}
+
+
+/*ADD NEW OBJECT OVERLAY
+=================================================*/
+.add_table {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    padding: 0 2rem;
+    z-index: 1000;
+    opacity: 0;
+    pointer-events: none;
+}
+.add_table-active {
+    pointer-events: initial;
+    opacity: 1;
+    transition: opacity .1s ease-in;
+}
+.overlay {
+    position: absolute;
+    background-color: #000000b3;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 998;
+}
+.esc_button {
+    position: relative;
+    background: none;
+    margin-bottom: 2rem;
+    width: 45px;
+    height: 45px;
+    z-index: 999;
+}
+.esc_button::after {
+    position: absolute;
+    top: 0;
+    content: '';
+    width: 3px;
+    height: 100%;
+    background-color: #f3f2ec;
+    transform: rotate(45deg);
+    transition: .25s ease-out;
+}
+.esc_button::before {
+    position: absolute;
+    top: 0;
+    content: '';
+    width: 3px;
+    height: 100%;
+    background-color: #f3f2ec;
+    transform: rotate(-45deg);
+    transition: .25s ease-out;
+}
+.esc_button:hover::after {
+    transform: rotate(-45deg);
+}
+.esc_button:hover::before {
+    transform: rotate(45deg);
+}
+.container-add_form {
+    box-sizing: content-box;
+    max-width: 600px;
+    min-height: max-content;
+    width: 100%;
+    height: max-content;
+    background-color: #f3f2ec;
+    background-image: radial-gradient( #00000017 20%, transparent 0);
+    background-size: 10px 10px;
+    background-position: center;
+    z-index: 999;
+}
+.add_form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 2rem;
+}
+.add_form label {
+    position: relative;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    font-size: 2rem;
+    color: #4e4e4e;
+
+    background-color: #7bc7a1;
+    width: 100%;
+    text-align: center;
+}
+.add_form input:not(.submit_add_form), .add_form textarea {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    font-style: italic;
+    font-size: 1rem;
+    color: #4e4e4e;
+
+    width: 100%;
+
+    padding: .5rem;
+    margin-bottom: 1rem;
+
+    background-color: #d3e3da;
+    border: .2rem #4e4e4e;
+    border-style: none none none solid;
+    cursor: text;
+}
+.submit_add_form {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    font-size: 1.5rem;
+    color: #f3f2ec;
+    letter-spacing: .03rem;
+    padding: .8rem 1rem;
+    width: 100%;
+
+    background-color: #4e4e4e;
+    cursor: pointer;
+    box-shadow: #7bc7a1 0rem 0px 0px,
+                #7bc7a1 0rem 0px 0px;
+    border: 0rem #7bc7a1;
+    border-style: none solid none solid;
+    box-shadow: #808080 0px 0px 10px;
+    transition: box-shadow .4s, border .4s, letter-spacing .4s;
+}
+.submit_add_form:hover {
+    box-shadow: #7bc7a1 0px .2rem 0px,
+                #7bc7a1 0px -.2rem 0px;
+    border: 3rem #7bc7a1;
+    border-style: none solid none solid;
+    letter-spacing: .1rem;
+}
+.personnel_main .add_form label {
+    font-size: 1.2rem;
+}
+.personnel_main .add_form input:not(.submit_add_form), .personnel_main .add_form textarea {
+    margin-bottom: .5rem;
+}

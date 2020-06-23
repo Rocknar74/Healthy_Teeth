@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/form_listener.css">
+    <link rel="stylesheet" href="css/style.css">
 	<link rel="shortcut icon" href="img/header/header_logo.png" type="image/x-icon">
 	<title>Healthy Teeth</title>
 </head>
@@ -13,23 +14,23 @@
 <?php
     require_once 'connect.php';
 
-    function back_button($href) {
-      return '<a href="index.php' . $href . '" class="back_to_main"> Вернуться на главную страницу</a>';
+    function back_button($href) { //$href = ссылка на ту секцию из которой была отправлена форма
+      return '<a href="index.php' . $href . '" class="back_button"> Вернуться на главную страницу</a>';
     };
 
     if (isset($_POST['submit_review'])) {
         $href = '#reviews';
         $name_reviewer = $_POST['name_reviewer'];
-        $write_text = $_POST['write_text'];
-        if (!empty($name_reviewer) && !empty($write_text)) {
+        $text_review = $_POST['text_review'];
+        if (!empty($name_reviewer) && !empty($text_review)) {
             $dbc = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME)
               or die ('Ошибка соединения с базой данных 1<br>'. back_button($href));
 
-            $query_delete = "DELETE FROM `reviews` WHERE name = '$name_reviewer' AND text_review = '$write_text'"
+            $query_delete = "DELETE FROM `reviews` WHERE name = '$name_reviewer' AND text_review = '$text_review'"
               or die ('Ошибка соединения с базой данных 2<br>'. back_button($href));
             mysqli_query($dbc, $query_delete);
 
-            $query = "INSERT INTO reviews VALUES (0, NOW(), '$name_reviewer', '$write_text')"
+            $query = "INSERT INTO `reviews` VALUES (0, NOW(), '$name_reviewer', '$text_review', NULL)"
               or die ('Ошибка соединения с базой данных 2<br>'. back_button($href));
             mysqli_query($dbc, $query);
             
@@ -37,8 +38,6 @@
                     <p class="header_form_listener">Отзыв успешно оставлен!</p>'
                     . back_button($href) .
                   '</div>';
-    
-            mysqli_close($dbc);
         } else {
           echo '<div class="container">
                   <p class="header_form_listener">Для отправки отзыва необходимо заполнить все поля!<br> 
@@ -49,10 +48,10 @@
         
     } else if (isset($_POST['submit_register'])) {
         $href = '#record_section';
-        $date = $_POST['date'];
         $name = $_POST['name'];
         $phone = $_POST['phone'];
         $email = $_POST['email'];
+        $date = $_POST['date'];
 
         if (!empty($name) && !empty($date) && !empty($phone)) {
             $dbc = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME)
@@ -62,8 +61,9 @@
               or die ('Ошибка соединения с базой данных 2<br>'. back_button($href));
             mysqli_query($dbc, $query_delete); 
 
-            $query = "INSERT INTO `registration` VALUES (0, '$date', '$name', '$phone', '$email')"
+            $query = "INSERT INTO `registration` VALUES (0, '$date', '$name', '$phone', '$email', 0)"
               or die ('Ошибка соединения с базой данных 2<br>'. back_button($href));
+
             mysqli_query($dbc, $query);
             
             $month_RU = [
@@ -80,15 +80,13 @@
               'Ноября',
               'Декабря'
             ];
-            $month_EN = date('n')-1;
-            $date = date('j', strtotime($reviews['date'])) . ' ' . $month_RU[$month_EN];
+            $month_EN = date('n', strtotime($date))-1;
+            $date = date('j', strtotime($date)) . ' ' . $month_RU[$month_EN];
 
             echo '<div class="container">
-                    <p class="header_form_listener">Вы зарегестрированы на ' . $date . '!</p>'
+                    <p class="header_form_listener">Вы оставили заявку на ' . $date . '!</p>'
                     . back_button($href) .
                   '</div>';
-              
-            mysqli_close($dbc);
         } else {
             echo '<div class="container">
             <p class="header_form_listener">Запись не была произведена!<br>
@@ -103,8 +101,7 @@
               . back_button($href) .
             '</div>';
     }
+    mysqli_close($dbc);
 ?>
-
 </body>
-
 </html>

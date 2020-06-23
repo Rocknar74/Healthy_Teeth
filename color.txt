@@ -1,0 +1,11 @@
+
+4fad81 - green hard version
+60b48c - green middle version
+7bc7a1 - green light version
+d3e3da - green text bg
+
+4e4e4e - dark hard version
+777777 - dark light version
+
+f3f2ec - white html bg
+f5f4ee - alter white html bg
